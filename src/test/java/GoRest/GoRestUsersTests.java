@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static io.restassured.RestAssured.*;
@@ -224,7 +225,7 @@ userID=
 
 
     }
-    @Test(enabled = false)
+    @Test
     public void getUsers(){
 
 
@@ -244,7 +245,81 @@ userID=
 
 
     }
-}
+    //// TODO lar//////////////////////////////////////////////////////////////////////////////////////
+    @Test //TODO 1
+    public void get3idWithPath(){
+
+
+            List<Integer> id=
+        given()//appi methoduna gitmeden once yapilacaklar bolumu
+
+                .header("Authorization","Bearer 6a844245e27f09f5577ce2b132f3158130f123e5c609c1a5c4c5a71443c33755")
+
+                .when()
+                .get("users")
+
+                .then()
+                .log().body()
+                .statusCode(200)
+                .extract().path("id")
+
+        ;
+        System.out.println("id = " + id);
+        for (int i = 0; i < 3; i++) {
+            System.out.println("id "+(i+1)+" = "+id.get(i));
+        }
+
+
+    }
+    @Test //TODO 2
+    public void get3idWithJsonPath(){
+
+
+        List<Integer> id=
+                given()//appi methoduna gitmeden once yapilacaklar bolumu
+
+                        .header("Authorization","Bearer 6a844245e27f09f5577ce2b132f3158130f123e5c609c1a5c4c5a71443c33755")
+
+                        .when()
+                        .get("users")
+
+                        .then()
+                        .log().body()
+                        .statusCode(200)
+                        .extract().jsonPath().getList("id")
+
+                ;
+        System.out.println("id = " + id);
+        for (int i = 0; i < 3; i++) {
+            System.out.println("id "+(i+1)+" = "+id.get(i));
+        }
+
+
+    }
+    @Test //TODO 2
+    public void allDataPutClass(){
+
+
+        TODO2 todo2=
+                given()//appi methoduna gitmeden once yapilacaklar bolumu
+
+
+                        .when()
+                        .get("https://gorest.co.in/public/v2/users/")
+
+                        .then()
+                        .log().body()
+                        .extract().as(TODO2.class)
+
+                ;
+
+        }
+
+
+    }
+
+
+
 class User{
     private String name;
     private String gender;
@@ -287,3 +362,65 @@ class User{
 // TODO : 3 usersın id sini alınız (path ve jsonPath ile ayrı ayrı yapınız)
 // TODO : Tüm gelen veriyi bir nesneye atınız
 // TODO : GetUserByID testinde dönen user ı bir nesneye atınız.
+
+class TODO2{
+    private int id;
+    private String name;
+    private String email;
+    private String gender;
+    private String status;
+
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "TODO2{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", gender='" + gender + '\'' +
+                ", status='" + status + '\'' +
+
+                '}';
+    }
+}

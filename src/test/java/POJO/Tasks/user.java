@@ -1,6 +1,6 @@
 package POJO.Tasks;
 
-public class user {
+public class user {//cagrildigi yer Task in icinde
     private int userId;
     private int id;
     private  String title;
