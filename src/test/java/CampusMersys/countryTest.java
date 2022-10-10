@@ -79,7 +79,7 @@ public class countryTest {
 
 
                 .when()
-                .post("/school-service/api/countries")
+                .post("school-service/api/countries")
 
                 .then()
                 .statusCode(201)
